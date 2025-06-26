@@ -19,7 +19,7 @@ export const useMutationIngredientCreate = (): UseMutationResult<
     },
     {
       onSuccess: () => {
-        clientQuery.invalidateQueries(Requests.listRecipe);
+        clientQuery.invalidateQueries(Requests.listIngredient);
       },
     }
   );

@@ -4,7 +4,7 @@ services:
   web-dev:
     image: node@sha256:1a9a71ea86aad332aa7740316d4111ee1bd4e890df47d3b5eff3e5bded3b3d10
     user: node
-    command: npm start
+    command: sh -c "npm install && npm start"
     working_dir: /usr/apps/web-dev
     volumes:
       - "./web-dev/:/usr/apps/web-dev"
@@ -25,7 +25,7 @@ services:
       flynt:
         aliases:
           - api-dev
-    command: "npm run start-server"
+    command: sh -c "npm install && npm run start-server"
     ports:
       - "3001:3001"
       - "9229:9229"

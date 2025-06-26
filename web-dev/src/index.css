@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f0f0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.AppBarButtonContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.CardCustom {
+  padding: 16px;
+  width: 100%;
+  height: 100%;
+}
+
+.cardCustomSmall {
+  padding: 16px;
+  width: 300px;
+  height: 100%;
+}
+
+.CommonLayout {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 80px;
+  padding-left: 80px;
+}
+
+.MarginRight16Px {
+  margin-right: 16px !important;
+}
+
+.MarginTop16Px {
+  margin-top: 16px;
+}
+
+.MarginBottom16Px {
+  margin-bottom: 16px;
+}
+
+.MarginBottom64Px {
+  margin-bottom: 64px;
+}
+
+.MarginBottom32Px {
+  margin-bottom: 32px;
+}
+
+.SmallTextExplanation {
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.BoldText  {
+  font-weight: bold;
+}
+
+.ShoppingListDetailContainer {
+  display: flex;
+  margin-bottom: 32px;
+  gap: 16px;
+}
+
+.tableContainer {
+  margin-top: 16px;
+  width: 100%;
+}

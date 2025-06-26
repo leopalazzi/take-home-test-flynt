@@ -1,0 +1,36 @@
+[
+  {
+    "environment": "dev",
+    "name": "default",
+    "type": "postgres",
+    "host": "db-dev",
+    "port": 5432,
+    "username": "postgres",
+    "password": "test",
+    "database": "api-rls",
+    "migrationsRun": true,
+    "dropSchema": false,
+    "synchronize": false,
+    "logging": false,
+    "entities": ["src/Entities/**/*.ts"],
+    "migrations": ["src/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"]
+  },
+  {
+    "environment": "test",
+    "name": "test",
+    "type": "postgres",
+    "host": "db-dev",
+    "port": 5432,
+    "username": "postgres",
+    "password": "test",
+    "database": "api-test",
+    "migrationsRun": true,
+    "dropSchema": false,
+    "synchronize": false,
+    "logging": false,
+    "entities": ["src/Entities/**/*.ts"],
+    "migrations": ["src/migration/dev/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"]
+  }
+]

@@ -8,6 +8,10 @@ services:
     working_dir: /usr/apps/web-dev
     volumes:
       - "./web-dev/:/usr/apps/web-dev"
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true 
     ports:
       - "3000:3000"
     networks:

@@ -10,17 +10,42 @@ export class RecipeService {
     return recipes;
   }
 
-  static async create(recipe: Recipe): Promise<Recipe> {
-    if (recipe.ingredients) {
-      const ingredients = await getRepository(Ingredient).find({
-        where: { id: In(recipe.ingredients) },
-      });
-      recipe.ingredients = ingredients;
+static async create(recipe: Recipe): Promise<Recipe> {
+  const ingredientRepo = getRepository(Ingredient);
+  const recipeRepo = getRepository(Recipe);
+
+  if (recipe.ingredients?.length > 0) {
+    const ingredients = await ingredientRepo.find({
+      where: { id: In(recipe.ingredients) },
+    });
+
+    const proteinIngredients = ingredients.filter(i => i.tag === "protein");
+
+    if (proteinIngredients.length > 1) {
+      throw new Error("Une recette ne peut contenir qu'une seule protéine.");
     }
 
-    const newRecipe = await getRepository(Recipe).save(recipe);
-    return newRecipe;
+    for (const protein of proteinIngredients) {
+      const existingRecipe = await recipeRepo
+        .createQueryBuilder("recipe")
+        .leftJoinAndSelect("recipe.ingredients", "ingredient")
+        .where("ingredient.id = :id", { id: protein.id })
+        .getOne();
+
+      if (existingRecipe) {
+        throw new Error(
+          `La protéine ${protein.name} est déjà utilisée dans la recette ${existingRecipe.name}.`
+        );
+      }
+    }
+
+    recipe.ingredients = ingredients;
   }
+
+  const newRecipe = await recipeRepo.save(recipe);
+  return newRecipe;
+}
+
 
   static async update(recipe: Recipe): Promise<Recipe> {
     const updatedRecipe = await getRepository(Recipe).save(recipe);

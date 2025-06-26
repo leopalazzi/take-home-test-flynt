@@ -17,7 +17,10 @@ export class RecipeController {
       res.send(recipe);
     } catch (err) {
       console.error("[RecipeController.create] Error creating recipe", err);
-      res.send(500);
+      if(err instanceof Error) {
+          res.status(400).json({ error: err.message  });  
+      }
+      res.status(500);
     }
   }
 

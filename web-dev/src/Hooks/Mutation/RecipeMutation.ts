@@ -16,7 +16,7 @@ export const useMutationRecipeCreate = (): UseMutationResult<
   const clientQuery = useQueryClient();
 
   return useMutation(
-    [Requests.createIngredient],
+    [Requests.createRecipe],
     async ({
       name,
       timeToCook,

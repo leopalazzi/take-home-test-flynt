@@ -28,6 +28,7 @@ export function IngredientTable({
             <TableRow>
               <TableCell>My ingredients</TableCell>
               <TableCell align="right">Price</TableCell>
+              <TableCell align="right">Tag</TableCell>
               <TableCell align="right">Delete</TableCell>
             </TableRow>
           </TableHead>
@@ -41,6 +42,7 @@ export function IngredientTable({
                   {row.name}
                 </TableCell>
                 <TableCell align="right">{row.price} €</TableCell>
+                <TableCell align="right">{row.tag}</TableCell>
                 <TableCell align="right">
                   <Button onClick={() => handlerButtonDelete(row)}>
                     DELETE

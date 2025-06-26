@@ -11,13 +11,12 @@ export const clientErrorHandler: ErrorRequestHandler = (
   if (process.env.TRACE) {
     Logger.error("[clientErrorHandler]", { status: 500 });
     Logger.error(err);
-    res.status(500).send(err);
+    return res.status(500);
   } else if (req.xhr) {
     Logger.error("[clientErrorHandler]", { status: 500 });
     Logger.error(err);
-    res.status(500).send({ error: "Internal Error" });
+    return res.status(500).send({ error: "Internal Error" });
   }
-  next(err);
 };
 
 export const logErrors: ErrorRequestHandler = (err, req, res, next) => {

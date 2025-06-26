@@ -37,14 +37,53 @@ export function CreateRecipesForm(): JSX.Element {
       return;
     }
 
-    await createRecipe({
-      name,
-      timeToCook,
-      numberOfPeople,
-      ingredients: selectedIngredients.map((e) => e.id),
-    });
+    const tagCount = selectedIngredients.reduce(
+      (acc, item) => {
+        switch (item.tag) {
+          case "protéine":
+            acc.proteins.push(item);
+            break;
+          case "féculent":
+            acc.starches.push(item);
+            break;
+          case "légumes":
+            acc.vegetables.push(item);
+            break;
+        }
+        return acc;
+      },
+      { proteins: [], starches: [], vegetables: [] } as {
+        proteins: OptionsMultiSelectType[];
+        starches: OptionsMultiSelectType[];
+        vegetables: OptionsMultiSelectType[];
+      }
+    );
 
-    resetFields();
+    if (tagCount.proteins.length > 1) {
+      alert("You can only select **one protein** per recipe.");
+      return;
+    }
+
+    if (tagCount.starches.length > 1) {
+      alert("You can only select **one starch (féculent)** per recipe.");
+      return;
+    }
+
+    try {
+      await createRecipe({
+        name,
+        timeToCook,
+        numberOfPeople,
+        ingredients: selectedIngredients.map((e) => e.id),
+      });
+      alert("Recipe created successfully!");
+      resetFields();
+    } catch (err: any) {
+      const errorMessage = err?.response?.data?.error || "An unexpected error occurred.";
+      alert(errorMessage);
+    }
+    
+
   };
 
   if (status === "error") {
@@ -76,14 +115,14 @@ export function CreateRecipesForm(): JSX.Element {
           <FormControl fullWidth margin="normal">
             {/* on peut mettre plusieurs fois le même ingrédient dans le formulaire mais après ça l'enregistre qu'une fois*/}
             <Autocomplete
-              onChange={(_e, value: OptionsMultiSelectType[]) => {
-                setSelectedIngredients(value);
+              onChange={(_e, values: OptionsMultiSelectType[]) => {
+                  setSelectedIngredients(values);
               }}
               value={selectedIngredients}
               multiple
               id="combo-box-demo"
               options={ingredients.map((e: Ingredient) => {
-                return { label: e.name, id: e.id };
+                return { label: e.name, tag: e.tag, id: e.id, value: e.id };
               })}
               renderInput={(params: any) => (
                 <TextField {...params} label="Ingredients" />

@@ -22,7 +22,7 @@ static async create(recipe: Recipe): Promise<Recipe> {
     const proteinIngredients = ingredients.filter(i => i.tag === "protein");
 
     if (proteinIngredients.length > 1) {
-      throw new Error("Une recette ne peut contenir qu'une seule protéine.");
+      throw new Error("A recipe contains only one protein.");
     }
 
     for (const protein of proteinIngredients) {
@@ -34,7 +34,7 @@ static async create(recipe: Recipe): Promise<Recipe> {
 
       if (existingRecipe) {
         throw new Error(
-          `La protéine ${protein.name} est déjà utilisée dans la recette ${existingRecipe.name}.`
+          `The protein ${protein.name} is already used in the recipe ${existingRecipe.name}.`
         );
       }
     }

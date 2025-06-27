@@ -40,13 +40,13 @@ export function CreateRecipesForm(): JSX.Element {
     const tagCount = selectedIngredients.reduce(
       (acc, item) => {
         switch (item.tag) {
-          case "protéine":
+          case "protein":
             acc.proteins.push(item);
             break;
-          case "féculent":
+          case "starchy":
             acc.starches.push(item);
             break;
-          case "légumes":
+          case "vegetable":
             acc.vegetables.push(item);
             break;
         }
@@ -60,12 +60,12 @@ export function CreateRecipesForm(): JSX.Element {
     );
 
     if (tagCount.proteins.length > 1) {
-      alert("You can only select **one protein** per recipe.");
+      alert("You can only select one protein per recipe.");
       return;
     }
 
     if (tagCount.starches.length > 1) {
-      alert("You can only select **one starch (féculent)** per recipe.");
+      alert("You can only select one starch per recipe.");
       return;
     }
 
